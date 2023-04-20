@@ -1,0 +1,16 @@
+exec cue trim mytest.cue
+-- mytest.cue --
+#IPPool: {
+	cidr: string
+}
+
+#cluster: {
+	podCIDR: string
+	IPPool:  #IPPool & {
+		cidr: podCIDR
+	}
+}
+
+clusters: [_]: #cluster
+
+clusters: vagrant: podCIDR: "abc"

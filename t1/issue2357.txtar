@@ -1,0 +1,20 @@
+exec cue trim trimtest.cue
+-- trimtest.cue --
+things: [_]: {
+	resources: *{
+		requests: {
+			memory: "100M"
+			cpu:    "100m"
+		}
+		limits: requests
+	} | {...}
+}
+
+things: vagrant: {
+	resources: {
+		requests: {
+			cpu: "1m"
+		}
+		limits: close({})
+	}
+}
