@@ -1,0 +1,2 @@
+https://cuetorials.com/first-steps/modules-and-packages/
+https://cuelang.org/docs/concepts/packages/

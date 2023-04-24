@@ -1,0 +1,52 @@
+exec go mod tidy
+exec go run main.go
+stdout task1
+stdout task2
+
+-- go.mod --
+module test
+require cuelang.org/go v0.6.0-0.dev.0.20230324092610-eea60b9cd229
+-- main.go --
+
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+
+	"cuelang.org/go/cue"
+	"cuelang.org/go/cue/cuecontext"
+	"cuelang.org/go/tools/flow"
+)
+
+var cueCode = `
+task1: {
+	isTask: true
+}
+task2: [{
+	isTask: true
+}]
+`
+
+func main() {
+	ctx := cuecontext.New()
+	v := ctx.CompileString(cueCode)
+	if err := v.Err(); err != nil {
+		log.Fatal("cannot compile: %v", err)
+	}
+	ctl := flow.New(nil, v, getTask)
+	if err := ctl.Run(context.Background()); err != nil {
+		log.Fatalf("error running flow: %v", err)
+	}
+}
+
+func getTask(v cue.Value) (flow.Runner, error) {
+	if v := v.LookupPath(cue.MakePath(cue.Str("isTask"))); v.Err() != nil {
+		return nil, nil
+	}
+	fmt.Printf("task %v\n", v.Path())
+	return flow.RunnerFunc(func(t *flow.Task) error {
+		return nil
+	}), nil
+}

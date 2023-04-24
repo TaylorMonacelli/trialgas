@@ -1,0 +1,7 @@
+> exec cue eval test.cue
+[stderr]
+expected label or ':', found '{':
+    ./test.cue:7:14
+[exit status 1]
+FAIL: /var/folders/qk/5rcd35wx00jcj3zylnxcfvrr0000gn/T/testscript4238058554/test.txtar/script.txtar:1: unexpected command failure
+error running test.txtar in /var/folders/qk/5rcd35wx00jcj3zylnxcfvrr0000gn/T/testscript4238058554/test.txtar

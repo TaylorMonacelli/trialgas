@@ -1,0 +1,3 @@
+#test.#AnyOfABC: conflicting values false and true:
+    ./mintest.cue:8:13
+    ./mintest.cue:8:20

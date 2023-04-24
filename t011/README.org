@@ -1,0 +1,23 @@
+* Is there way to specify that a list must have at least one element?
+
+https://cuelang.slack.com/archives/CLT4FD7KP/p1681932566833419
+https://github.com/cue-lang/cue/issues/1999
+
+*
+
+Is there way to specify that a list must have at least one element?
+#a: [...string]
+a: #a
+
+In this case the config should be invalid
+
+*
+
+See list.MinItems here.
+pkg.go.devpkg.go.dev
+list package - cuelang.org/go/pkg/list - Go Packages
+Package list contains functions for manipulating and examining lists.
+
+*
+
+#a: [string, ...string]

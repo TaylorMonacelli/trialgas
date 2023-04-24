@@ -1,0 +1,34 @@
+exec cue export question.cue
+cmp stdout expected-stdout-question
+
+exec cue export answer1.cue
+cmp stdout expected-stdout
+
+exec cue export answer2.cue
+cmp stdout expected-stdout
+
+-- question.cue --
+#a: [...string]
+a: #a
+-- answer2.cue --
+#a: [string, ...string]
+a: #a & {
+	["test"]
+}
+-- expected-stdout-question --
+{
+    "a": []
+}
+-- answer1.cue --
+import "list"
+
+#a: list.MinItems(1)
+a: #a & {
+	["test"]
+}
+-- expected-stdout --
+{
+    "a": [
+        "test"
+    ]
+}

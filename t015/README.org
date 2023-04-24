@@ -1,0 +1,78 @@
+* 
+** summary
+
+https://cuelang.slack.com/archives/CLT4FD7KP/p1681508251460929
+https://github.com/hofstadter-io/cuetorials.com/issues/72
+
+https://cuetorials.com/patterns/fields/#anyof
+
+** 
+
+I'm struggling to implement the AnyOf pattern found on
+https://cuetorials.com/patterns/fields/#anyof .
+
+It works in the example given, but not with external data coming from
+a json file.
+
+
+
+
+** 
+
+Tony Worm
+
+Original conversation for additional context: 
+
+https://github.com/hofstadter-io/cuetorials.com/issues/72
+#72 AnyOf Pattern doesn't work when fields are optional and array
+import "list"
+
+#test: this={
+    a?:        [...string]
+    b?:        string
+
+** 
+
+https://github.com/cue-lang/cue/issues/943
+
+myitcv
+
+Now that we have v0.6.0-alpha.1 out, we can start to move
+https://github.com/cue-lang/cue/issues/943 forward
+
+#943 Proposal: core builtin extensions
+Originally opened by @mpvl in cuelang/cue#943
+Definitions
+Before we introduce some of the proposed builtins, we formally introduce some as-of-yet undocumented language features.
+Functions
+We propose cue supports named argument functions and calls to “structs” as a shorthand for the common macro pattern (e.g. (s & { _, a: x}).out).
+A function argument is now defined as:
+    Argument       = [ identifier ":" ] Expression .
+Any named argument must be followed by other named arguments.
+The expression s(a: x, b: y), where s is a struct, is now a shorthand for s & {_, a: x, b: y).
+
+Validator
+A validator is a special builtin that is evaluated by unifying it with other values whereby the result is one of a few outcom… Show more
+
+** 
+
+myitcv
+
+This will address many problems with anyof, oneof etc (edited)
+
+** 
+
+Troy Ross
+
+Yes, I see it will based on reading the proposal I had assumed that
+because it was from almost two years ago it was unlikely to move
+forward.
+
+Is there any workaround I can use today that will allow me to
+accomplish AnyOf functionality as described?
+
+** 
+
+myitcv
+
+This proposal (and a number of others) will really start to move forward now that v0.5.0 is out

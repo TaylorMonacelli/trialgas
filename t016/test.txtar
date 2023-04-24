@@ -1,0 +1,36 @@
+exec go get cuelang.org/go@v0.4.3
+exec go mod tidy
+exec go run main.go
+! stdout .
+
+exec go get cuelang.org/go@v0.5.0-rc.1
+exec go mod tidy
+exec go run main.go
+! stdout .
+
+-- main.go --
+package main
+
+import (
+	"fmt"
+
+	"cuelang.org/go/cue"
+	"cuelang.org/go/cue/cuecontext"
+	"cuelang.org/go/cue/errors"
+)
+
+func main() {
+	ctx := cuecontext.New()
+	schema := ctx.CompileString(`
+		#T: {}
+	`).LookupPath(cue.MakePath(cue.Def("#T")))
+	data := ctx.CompileString(`
+		let foobar = {}
+		_use: foobar
+	`)
+	fmt.Println(errors.Details(schema.Unify(data).Err(), nil))
+}
+-- go.mod --
+module test
+
+go 1.19

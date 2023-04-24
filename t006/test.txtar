@@ -1,0 +1,29 @@
+exec cue export test.cue
+cmp stdout expected-std-cue
+
+-- test.cue --
+package example
+
+#AADEntity: {
+	name:     string
+	objectId: string
+}
+
+#AADApplication: {
+	#AADEntity
+	clientId: string
+}
+
+#AADGroup: #AADEntity
+
+#RoleAssignment: {
+	_entity: #AADEntity
+
+	roleId: string
+
+	// would like some way to determine this automatically based on the entity type
+	principalType: "Group" | "ServicePrincipal"
+}
+
+-- expected-std-cue --
+{}

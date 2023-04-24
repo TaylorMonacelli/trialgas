@@ -1,0 +1,22 @@
+-- test.cue --
+for i in ["a", "b"] {
+  V="mkdir_\(i)": { name: i, path: "./\(i)" }
+
+  "touch_\(i)": { path: V.path }
+}
+
+-- expected-stdout --
+mkdir_a: {
+	name: "a"
+	path: "./a"
+}
+touch_a: {
+	path: "./a"
+}
+mkdir_b: {
+	name: "b"
+	path: "./b"
+}
+touch_b: {
+	path: "./b"
+}

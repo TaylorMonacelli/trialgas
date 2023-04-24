@@ -1,0 +1,9 @@
+exec cue version
+exec cue eval test.cue
+-- test.cue --
+a: {
+	r: b.z
+}
+b: {
+	for f in a.u {e: 0}
+}

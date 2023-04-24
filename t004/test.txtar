@@ -1,0 +1,31 @@
+exec cue export .
+cmp stdout expected-stdout-cue
+
+-- a.cue --
+package foobar
+
+#A: {
+        a: true
+        b: bool
+}
+
+-- b.cue --
+package foobar
+
+#B: {
+        a: bool
+        b: true
+}
+
+-- foobar.cue --
+package foobar
+
+foobar: #A & #B
+
+-- expected-stdout-cue --
+{
+    "foobar": {
+        "a": true,
+        "b": true
+    }
+}

@@ -1,0 +1,62 @@
+* 
+** summary
+
+https://cuelang.slack.com/archives/CLT4FD7KP/p1681230552815559
+
+** 
+
+https://cuelang.org/docs/references/spec/#structs
+https://cuelang.org/docs/references/spec/#identifiers
+
+** 
+
+Your definition name is valid CUE, but it can’t be exported.
+
+In other words, if you pass it through cue def, you can see that CUE
+accepts it as the name of a definition within the top-level struct.
+
+Oh, wait, I’m wrong; that’s not a definition at all; it’s a regular
+field whose name happens to begin with an octothorpe.
+
+It can be exported with a more recent version of CUE.
+
+Now, whether you can turn it into a valid OpenAPI schema I haven’t
+thought through.
+
+** 
+
+I'm using the latest version of CUE v0.4.3 .
+
+Do you know if there's a workaround, like mapping a non hypen type
+definition ex: genericHttpServer to "generic-http-server" on export?
+
+If not, I will try running a find an replace with sed after the export
+
+** 
+
+No, there is no such facility in the cue tool.
+
+** 
+
+I take it you’re looking to generate an OpenAPI schema?
+
+** 
+
+My goal is to produce a JSON schema that can be used in editors for
+basic auto-completion and validation.
+
+So I'm generating an openAPI schema then converting it to a JSON
+schema.
+
+** so this workaround seems to be good enough
+
+#+begin_example
+cue export --out openapi schema/values.cue | sed  -e 's/genericHttpServer/generic-http-server/g'
+#+end_example
+
+
+
+
+
+
+

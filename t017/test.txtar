@@ -1,0 +1,49 @@
+exec cue eval root.cue
+
+-- cue.mod/module.cue --
+module: "github.com/hofstadter-io/cuetorials"
+-- root.cue --
+package root
+
+import (
+        // imports from a dependency
+        "github.com/foo/bar"
+        // import from a dependency subdir, rewrite name
+        B "github.com/foo/bar/b"
+        // import from a nested dir with package name
+        "github.com/foo/bar/multi:hello"
+        "github.com/foo/bar/multi:world"
+
+        // import from this module
+        "github.com/hofstadter-io/cuetorials/a"
+)
+
+root: "root"
+
+vals: {
+        ex1: bar.value
+        ex2: B.b
+        ex3: hello.msg
+        ex4: world.msg
+        ex5: a.a
+}
+-- a/a.cue --
+package a
+
+a: "a"
+-- cue.mod/pkg/github.com/foo/bar/bar.cue --
+package bar
+
+value: "BAR"
+-- cue.mod/pkg/github.com/foo/bar/b/b.cue --
+package b
+
+b: "b"
+-- cue.mod/pkg/github.com/foo/bar/multi/hello.cue --
+package hello
+
+msg: "hello"
+-- cue.mod/pkg/github.com/foo/bar/multi/world.cue --
+package world
+
+msg: "world"

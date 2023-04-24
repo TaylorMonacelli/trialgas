@@ -1,0 +1,20 @@
+exec cue eval -c ./mintest.cue ./testany.json -d "#test"
+
+-- mintest.cue --
+import "list"
+
+#test: this={
+	a?:        string
+	b?:        string
+	c?:        string
+	mins:      list.MinItems([for label, _ in this if list.Contains(["a", "b", "c"], label) {label}], 1)
+	#AnyOfABC: true & list.MinItems([ for label, _ in this if list.Contains(["a", "b", "c"], label) {label}], 1)
+}
+-- testany.json --
+{
+  "b": "foo"
+}
+-- out/output --
+#test.#AnyOfABC: conflicting values false and true:
+    ./mintest.cue:8:13
+    ./mintest.cue:8:20

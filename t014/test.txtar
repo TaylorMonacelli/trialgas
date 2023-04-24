@@ -1,0 +1,10 @@
+exec cue def schema/values2.cue
+# cue export --out openapi schema/values2.cue
+
+-- schema/values2.cue --
+"#generic-http-server": {
+	service: {
+		port:        >=80 & <=65535
+		targetPort?: _ // TODO: figure out how to handle string or int types
+	}
+}

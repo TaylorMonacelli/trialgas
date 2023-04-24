@@ -1,0 +1,31 @@
+*
+
+** summary
+
+https://cuelang.slack.com/archives/CLT4FD7KP/p1681483949508369
+https://cuelang.org/play/?id=dTwQshUzTTK#cue@export@cue
+https://cuelang.org/play/?id=Ogyv2QTcVOC#cue@def@cue
+
+**
+
+I'm trying to do something I may or may not be able to do.
+
+I want to support the ability to enter values that make sense to them.
+
+E.g.
+
+allocations: { allocation_one: "20%"}
+
+where this will automatically get 20% of a value defined in the scope.
+
+The scalar definition here works, but I'm having trouble adding
+context for the definition to be useful without defining a tailor made
+version of that definition for each case.
+
+I've outlined the approach so far here:
+https://cuelang.org/play/?id=dTwQshUzTTK#cue@export@cue along with
+some comments on what I'm trying to do.
+
+It's all a bit odd, but potentially very cool.
+
+**
